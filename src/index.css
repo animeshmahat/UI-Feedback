@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-body: "Space Mono", monospace;
+  --color-bg-base: #000;
+  --color-text-base: #fff;
+  --color-border: #fff;
+}
+
+@layer base {
+  html {
+    class: dark; /* default dark mode */
+  }
+  body {
+    @apply bg-bg-base text-text-base font-body;
+  }
+}
