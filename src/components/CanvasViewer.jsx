@@ -1,37 +1,39 @@
+import { useEffect, useState } from "react";
+import LoadingSpinner from "./LoadingSpinner";
+
+// This component displays the uploaded image or a message/loading spinner.
+// It’s the main canvas area where pins will be placed later.
 export default function CanvasViewer({ image }) {
-  // Check if no image has been uploaded yet
-  // In JavaScript, null, undefined, empty string, etc. are "falsy" values
+  const [loading, setLoading] = useState(true); // Controls loading animation
+
+  useEffect(() => {
+    if (!image) return;
+    setLoading(true);
+    const img = new Image();
+    img.src = image;
+    img.onload = () => setLoading(false); // Image is loaded
+  }, [image]);
+
+  // If no image uploaded yet, show empty state
   if (!image) {
-    // Return a placeholder message when no image is present
     return (
-      // Container with styling for the empty state
-      // - w-full h-96: full width, fixed height
-      // - flex items-center justify-center: center content both horizontally and vertically
-      // - border-dashed: dashed border style to indicate it's a drop zone
-      <div className="w-full h-96 flex items-center justify-center text-center border border-dashed border-white">
-        <p className="text-white">
+      <div className="w-full h-96 flex items-center justify-center border border-dashed border-black dark:border-white">
+        <p className="text-black dark:text-white text-center">
           Upload a UI screenshot to begin commenting.
         </p>
       </div>
     );
   }
 
-  // If an image exists, display it
-  return (
-    // Container div for the image
-    // - relative: allows absolute positioning of child elements
-    // - overflow-auto: adds scrollbars if content is too large
-    // - max-h-[80vh]: maximum height of 80% of viewport height
-    <div className="relative overflow-auto max-h-[80vh] border border-white">
-      {/* Display the uploaded image */}
-      <img
-        src={image} // The image data (base64 string from FileReader)
-        alt="Uploaded UI" // Alternative text for accessibility
-        className="w-full object-contain" // Full width, maintain aspect ratio
-      />
+  // Show spinner until image finishes loading
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-      {/* Comment indicates future functionality will be added here */}
-      {/* Pins will be added here absolutely later */}
+  // Show the uploaded image in a scrollable, styled container
+  return (
+    <div className="relative overflow-auto max-h-[80vh] border border-black dark:border-white bg-white dark:bg-black">
+      <img src={image} alt="Uploaded UI" className="w-full object-contain" />
     </div>
   );
 }
