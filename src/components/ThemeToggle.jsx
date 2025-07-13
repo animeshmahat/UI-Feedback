@@ -19,7 +19,11 @@ export default function ThemeToggle() {
 
   return (
     <button
-      className="border border-black dark:border-white px-4 py-2 bg-white dark:bg-black text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-500 ease-in-out"
+      className={`text-sm px-3 py-2 border-2 ${
+        isDark
+          ? "border-white bg-black text-white hover:bg-gray-700"
+          : "border-black bg-white text-black hover:bg-gray-200"
+      } transition-colors mt-4 font-bold shadow-[4px_4px_0_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] active:shadow-none active:translate-x-1 active:translate-y-transition-all duration-500 ease-in-out`}
       onClick={() => setIsDark((prev) => !prev)}
     >
       {isDark ? "☀ Light Mode" : "🌙 Dark Mode"}

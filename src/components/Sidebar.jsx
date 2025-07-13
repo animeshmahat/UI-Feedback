@@ -46,6 +46,17 @@ export default function Sidebar({ setUploadedImage }) {
       <p className="text-xs text-gray-500 dark:text-gray-400">
         Images are previewed locally and never uploaded to a server.
       </p>
+
+      <button
+        onClick={() => {
+          localStorage.removeItem("canvas-image");
+          localStorage.removeItem("canvas-pins");
+          setUploadedImage(null);
+        }}
+        className="text-sm px-3 py-2 border-2 border-black dark:border-white bg-red-600 text-white hover:bg-red-700 transition-colors mt-4 font-bold shadow-[4px_4px_0_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+      >
+        CLEAR IMAGE & COMMENTS
+      </button>
     </div>
   );
 }
